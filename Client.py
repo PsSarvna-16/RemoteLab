@@ -1,5 +1,6 @@
 import socket
 from tkinter import *
+import time
 
 class Socket:
 	ip = ""
@@ -11,9 +12,13 @@ soc.ip = '192.168.43.179'
 soc.port = 8888
 con = ""
 
+def Status(msg):
+	status_e.delete(0,END)
+	status_e.insert(0,"Status : "+msg)
+
 def sendData(msg,soc):
 	soc.send(bytes(msg,'utf-8'))
-	print(soc.recv(1024).decode())
+	Status(soc.recv(1024).decode())
 	if(msg == "EXIT" or msg == "TERMINATE"):
 		exit()
 	return
@@ -21,13 +26,11 @@ def sendData(msg,soc):
 def connectServer(ip,port):
 	print("********CLIENT SIDE**********")
 	soc.con = socket.socket()
-
 	soc.con.connect((soc.ip,soc.port))
 	print("Connected to the Server\n");
 	print("Led Blinking Code\n");
-
 	msg = soc.con.recv(1024).decode()
-	print(msg + "\n")
+	Status(msg)
 	if(msg == "Arduino Not Conneced"):
 		exit()
 	slider.config(state = NORMAL)
@@ -50,10 +53,17 @@ slider.pack(pady =10 )
 update_b = Button(window, text ="Update Changes",state = DISABLED, command = lambda:sendData(str(float(slider.get())),soc.con))
 update_b.pack(pady =10 )
 
+status_e = Entry(window,width = 30,justify = "center")
+status_e.pack(pady =10)
+Status("Not Connected")
+
 exit_b = Button(window, text ="Exit", command = lambda:sendData("EXIT",soc.con),state = DISABLED)
-exit_b.pack(padx =20 , side = LEFT)
+exit_b.pack(padx =10 , side = LEFT)
 
 term_b = Button(window, text ="Terminate", command = lambda:sendData("TERMINATE",soc.con),state = DISABLED)
-term_b.pack(padx =20 ,side = RIGHT)
+term_b.pack(padx =10 ,side = RIGHT)
+
+
+
 
 window.mainloop()

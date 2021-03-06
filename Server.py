@@ -25,7 +25,7 @@ try:
 
 		try:
 			arduino = Arduino('COM3')
-			msg = "Arduino is Connected"
+			msg = "Connected Successfully"
 		except:
 			msg = "Arduino Not Connected"
 			print("\n" + msg)
