@@ -18,5 +18,5 @@ while True:
 	msg = input("Enter '0.0 -> 1.0' or 'EXIT' : ")
 	soc.send(bytes(msg,'utf-8'))
 	print(soc.recv(1024).decode())
-	if(msg == "EXIT" or msg == "TERMINATED"):
+	if(msg == "EXIT" or msg == "TERMINATE"):
 		exit()

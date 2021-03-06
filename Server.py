@@ -46,9 +46,6 @@ try:
 			elif(code  == "0"):
 				led.write(0)
 				msg = "Led is OFF"
-			elif(float(code) > 0.0 and float(code) < 1.0 ):
-				led.write(float(code))
-				msg = "Led duty Cycle : " + code 
 			elif(code  == "EXIT"):
 				led.write(0)
 				arduino.exit()
@@ -63,6 +60,9 @@ try:
 				print(msg)
 				client.send(bytes(msg,'utf-8'))
 				exit()
+			elif(float(code) > 0.0 and float(code) < 1.0 ):
+				led.write(float(code))
+				msg = "Led duty Cycle : " + code 
 			else:
 				msg = "Invalid Input"
 			print(msg)
