@@ -40,10 +40,10 @@ try:
 			code = client.recv(1024).decode()
 			print("User Input : " + code)
 
-			if(code  == "1"):
+			if(code  == "100.0"):
 				led.write(1)
 				msg = "Led is On"
-			elif(code  == "0"):
+			elif(code  == "0.0"):
 				led.write(0)
 				msg = "Led is OFF"
 			elif(code  == "EXIT"):
@@ -60,8 +60,8 @@ try:
 				print(msg)
 				client.send(bytes(msg,'utf-8'))
 				exit()
-			elif(float(code) > 0.0 and float(code) < 1.0 ):
-				led.write(float(code))
+			elif(float(code) > 0.0 and float(code) < 100.0 ):
+				led.write(float(code)/100)
 				msg = "Led duty Cycle : " + code 
 			else:
 				msg = "Invalid Input"
