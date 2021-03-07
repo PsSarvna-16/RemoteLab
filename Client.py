@@ -1,6 +1,5 @@
 import socket
 from tkinter import *
-import time
 
 class Socket:
 	ip = ""
@@ -13,8 +12,10 @@ soc.port = 8888
 con = ""
 
 def Status(msg):
+	status_e.config(state = NORMAL)
 	status_e.delete(0,END)
 	status_e.insert(0,"Status : "+msg)
+	status_e.config(state =DISABLED)
 
 def sendData(msg,soc):
 	soc.send(bytes(msg,'utf-8'))
@@ -53,7 +54,7 @@ slider.pack(pady =10 )
 update_b = Button(window, text ="Update Changes",state = DISABLED, command = lambda:sendData(str(float(slider.get())),soc.con))
 update_b.pack(pady =10 )
 
-status_e = Entry(window,width = 30,justify = "center")
+status_e = Entry(window,width = 30,justify = "center",background= "#EBEBEB")
 status_e.pack(pady =10)
 Status("Not Connected")
 
@@ -62,8 +63,5 @@ exit_b.pack(padx =10 , side = LEFT)
 
 term_b = Button(window, text ="Terminate", command = lambda:sendData("TERMINATE",soc.con),state = DISABLED)
 term_b.pack(padx =10 ,side = RIGHT)
-
-
-
 
 window.mainloop()
