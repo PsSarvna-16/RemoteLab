@@ -1,11 +1,16 @@
-import socket
-from pyfirmata import Arduino
+import socket,time
+from pyfirmata import Arduino,util, STRING_DATA
+
+def lcd(arduino,text):
+    if text:
+        arduino.send_sysex( STRING_DATA, util.str_to_two_byte_iter( text ) )
+
 
 try:
 	soc = socket.socket()
 	print('Socket created')
 
-	port = 8888
+	port = 8886
 	name = socket.gethostname()
 	ip = socket.gethostbyname(name)
 	print(f"{name} :  {ip} : {port}")
@@ -26,12 +31,13 @@ try:
 		try:
 			arduino = Arduino('COM3')
 			msg = "Connected Successfully"
+			lcd(arduino," ")
 		except:
 			msg = "Arduino Not Connected"
 			print("\n" + msg)
 			client.send(bytes(msg,'utf-8'))
 			exit()
-		led = arduino.get_pin('d:9:p')
+		ser = arduino.get_pin('d:6:s')
 
 		print("\n" + msg + "\n")
 		client.send(bytes(msg,'utf-8'))
@@ -40,29 +46,25 @@ try:
 			code = client.recv(1024).decode()
 			print("User Input : " + code)
 
-			if(code  == "100.0"):
-				led.write(1)
-				msg = "Led is On"
-			elif(code  == "0.0"):
-				led.write(0)
-				msg = "Led is OFF"
-			elif(code  == "EXIT"):
-				led.write(0)
-				arduino.exit()
+			if(code  == "EXIT"):
+				ser.write(0)
 				msg = "CONNECTION ABORTED BY USER!!"
 				print(msg)
 				client.send(bytes(msg,'utf-8'))
+				time.sleep(1)
+				arduino.exit()
 				break;
 			elif(code  == "TERMINATE"):
-				led.write(0)
+				ser.write(0)
 				arduino.exit()
 				msg = "SERVER TERMINATED !!"
 				print(msg)
 				client.send(bytes(msg,'utf-8'))
 				exit()
-			elif(float(code) > 0.0 and float(code) < 100.0 ):
-				led.write(float(code)/100)
-				msg = "Led duty Cycle : " + code 
+			elif(int(code) >= 0 and int (code) <= 180 ):
+				ser.write(int(code))
+				msg = "Angle: " + code 
+				lcd(arduino,str(code))
 			else:
 				msg = "Invalid Input"
 			print(msg)
