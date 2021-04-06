@@ -5,12 +5,11 @@ def lcd(arduino,text):
     if text:
         arduino.send_sysex( STRING_DATA, util.str_to_two_byte_iter( text ) )
 
-
 try:
 	soc = socket.socket()
 	print('Socket created')
 
-	port = 8886
+	port = 8888
 	name = socket.gethostname()
 	ip = socket.gethostbyname(name)
 	print(f"{name} :  {ip} : {port}")
