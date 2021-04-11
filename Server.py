@@ -51,10 +51,15 @@ try:
 				print(msg)
 				client.send(bytes(msg,'utf-8'))
 				time.sleep(1)
+				lcd(arduino,'S')
+				time.sleep(1)
 				arduino.exit()
 				break;
 			elif(code  == "TERMINATE"):
 				ser.write(0)
+				time.sleep(1)
+				lcd(arduino,'S')
+				time.sleep(1)
 				arduino.exit()
 				msg = "SERVER TERMINATED !!"
 				print(msg)

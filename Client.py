@@ -97,7 +97,7 @@ connect_b.place(x=50,y=10)
 lineh = Canvas(window,width = 230, height = 1 , bg = "black")
 lineh.place(x=10,y=45)
 
-real_cb = Checkbutton(window, text ="Real time",variable = real,offvalue = False,onvalue = True)
+real_cb = Checkbutton(window, text ="Angle",variable = real,offvalue = False,onvalue = True)
 real_cb.place(x=100,y=60)
 
 slider = Scale(window,from_ = 0, to = 180,state = DISABLED, orient = HORIZONTAL)
@@ -106,7 +106,6 @@ slider.place(x=20,y=95)
 update_b = Button(window, text ="Update",state = DISABLED,command = lambda:realThreading() )
 update_b.place(x=150,y=115)
 
-#command = lambda:sendData(str(int(slider.get())),soc.con)
 lineh = Canvas(window,width = 230, height = 1 , bg = "black")
 lineh.place(x=10,y=150)
 
