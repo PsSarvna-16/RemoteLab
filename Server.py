@@ -5,18 +5,23 @@ def lcd(arduino,text):
     if text:
         arduino.send_sysex( STRING_DATA, util.str_to_two_byte_iter( text ) )
 
+
+class Socket():
+	name = ""
+	ip = ""
+	port = ""
+	soc = ""
+
+	def __init__(self,port):
+		self.soc = socket.socket()
+		self.name = socket.gethostname()
+		self.ip = socket.gethostbyname(name)
+		self.soc.bind(('',port))
+		self.soc.listen(1)
+
+
+"""
 try:
-	soc = socket.socket()
-	print('Socket created')
-
-	port = 8888
-	name = socket.gethostname()
-	ip = socket.gethostbyname(name)
-	print(f"{name} :  {ip} : {port}")
-
-	soc.bind(('',port))
-	soc.listen(1)
-
 	while True:
 		print('\nwaiting For Clients..')
 		try:
@@ -73,9 +78,11 @@ try:
 				msg = "Invalid Input"
 			print(msg)
 			client.send(bytes(msg,'utf-8'))
+
+
 finally:
 	try:
-		soc.close()
+		ser.soc.close()
 	except:
 		pass	
 	try:
@@ -85,4 +92,4 @@ finally:
 	try:
 		client.close()
 	except:
-		pass
+		pass"""

@@ -134,4 +134,5 @@ term_b.place(x=160,y=315)
 
 window.bind("<F12>",key_pressed)
 
+
 window.mainloop()
