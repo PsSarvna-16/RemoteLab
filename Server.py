@@ -7,10 +7,10 @@ def lcd(arduino,text):
 
 
 class Socket():
-	name = ""
-	ip = ""
-	port = ""
-	soc = ""
+	self.name = ""
+	self.ip = ""
+	self.port = ""
+	self.soc = ""
 
 	def __init__(self,port):
 		self.soc = socket.socket()
@@ -20,7 +20,7 @@ class Socket():
 		self.soc.listen(1)
 
 
-"""
+
 try:
 	while True:
 		print('\nwaiting For Clients..')
@@ -92,4 +92,4 @@ finally:
 	try:
 		client.close()
 	except:
-		pass"""
+		pass
